@@ -1,7 +1,7 @@
 # jogosLPA_AELL
 
-Play 
+Java Project: jogosLPA_AELL 
 
-Print
+Package: br.ucsal
 
-Scan
+Classes: Play (classe de execução principal), Print (classe para impressão), JogoDaVelha (classe para execução do Jogo da Velha), JogoDeDamas (classe para execução do Jogo de Damas).
