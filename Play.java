@@ -6,24 +6,31 @@ public class Play {
 
 	public static void main(String[] args) {
 
-		Print.p("JOGO DA VELHA & DAMAS"
+		Print.p("\n"
+				+ "JOGO DA VELHA & DAMAS"
+				+ "\n"	
 				+ "\nOlá! Informe seu nome:");
 
 		Scanner sc = new Scanner(System.in);
 		String nomeJogador = sc.nextLine();
 
-		Print.p("Qual jogo você quer jogar, " + nomeJogador + "?"
-				+ "\n(1) Jogo da Velha;"
-				+ "\n(2) Jogo de Damas;"
-				+ "\n(3) Sair");
-
-		int escolha = sc.nextInt();
-		obterEscolhaJogo(escolha, nomeJogador);
+		
+		obterEscolhaJogo(nomeJogador);
 
 	}
 
-	public static void obterEscolhaJogo(int escolha, String nomeJogador) {
+	public static void obterEscolhaJogo(String nomeJogador) {
+		
+		Scanner sc = new Scanner(System.in);
+		
+		Print.p("\n"
+				+ "Qual jogo você quer jogar, " + nomeJogador + "?"
+				+ "\n(1) Jogo da Velha;"
+				+ "\n(2) Jogo de Damas;"
+				+ "\n(3) Sair.");
 
+		int escolha = sc.nextInt();
+		
 		switch (escolha) {
 
 		case 1: 

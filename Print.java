@@ -18,4 +18,13 @@ public class Print {
 		System.out.print(vetor);
 	}
 
+	public static void tab(String[][] tabuleiro) {
+		for (int i = 0; i < tabuleiro.length; i++) {
+			for (int j = 0; j < tabuleiro.length; j++) {
+				System.out.print(tabuleiro[i][j] +	" ");}
+			System.out.println(" ");
+		}
+		
+	}
+
 }
