@@ -9,7 +9,7 @@ public class Play {
 		Print.p("\n"
 				+ "JOGO DA VELHA & DAMAS"
 				+ "\n"	
-				+ "\nOl�! Informe seu nome:");
+				+ "\nOlá! Informe seu nome:");
 
 		Scanner sc = new Scanner(System.in);
 		String nomeJogador = sc.nextLine();
@@ -23,13 +23,28 @@ public class Play {
 		
 		Scanner sc = new Scanner(System.in);
 		
-		Print.p("\n"
-				+ "Qual jogo voc� quer jogar, " + nomeJogador + "?"
-				+ "\n(1) Jogo da Velha;"
-				+ "\n(2) Jogo de Damas;"
-				+ "\n(3) Sair.");
-
-		int escolha = sc.nextInt();
+		int escolha;
+		
+		do {
+			
+			Print.p("\n"
+					+ "Qual jogo você quer jogar, " + nomeJogador + "?"
+					+ "\n(1) Jogo da Velha;"
+					+ "\n(2) Jogo de Damas;"
+					+ "\n(3) Charada;"
+					+ "\n(4) Sair.");
+			
+			escolha = sc.nextInt();
+			
+			if (escolha != 1 && escolha != 2 && escolha != 3 && escolha != 4) {
+				
+				Print.p("Não temos essa opção, tente novamente.");
+				
+			}
+			
+		} while (escolha != 1 && escolha != 2 && escolha != 3 && escolha != 4);
+		
+		//não estamos tratado caso a pessoa insira uma letra ao invés de um número
 		
 		switch (escolha) {
 
@@ -40,16 +55,42 @@ public class Play {
 		case 2: 
 			JogoDeDamas.main(null, nomeJogador);
 			break;
-
-		case 3:
+			
+		case 3: 
+			Charada.main(null, nomeJogador);
+			break;
+			
+		case 4:
 			Print.p("Certo! Podemos jogar de outra vez.");
 			break;
 
 		default:
-			Print.p("N�o temos essa op��o, tente novamente.");
+			Print.p("Erro inesperado.");
 
 		}
 
+	}
+	
+	public static void aindaQuerJogar(String nomeJogador) {
+
+		int aindaQuerJogar;
+
+		do {
+
+			Print.p("Você ainda quer jogar, " + nomeJogador + "?"
+					+ "\n(1) Sim;"
+					+ "\n(2) Não;");
+
+			Scanner sc = new Scanner (System.in);
+			aindaQuerJogar = sc.nextInt();
+
+		} while (aindaQuerJogar != 1 && aindaQuerJogar != 2);
+
+		if (aindaQuerJogar == 1) {
+			Play.obterEscolhaJogo(nomeJogador);
+		} else {
+			Print.p("Certo! Nos vemos de outra vez.");
+		}
 	}
 
 }
