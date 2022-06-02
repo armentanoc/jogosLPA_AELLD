@@ -8,13 +8,11 @@ public class JogoDaVelha {
 
 		Print.p("\nJOGO DA VELHA");
 
-		tabuleiro();
-
 		String [] [] tabuleiro = tabuleiro();
 		Print.tab(tabuleiro);
 
 		char escolhaPeca = pecaInicial(nomeJogador);
-		
+
 		jogoON(escolhaPeca, tabuleiro, nomeJogador);
 
 	}
@@ -26,17 +24,17 @@ public class JogoDaVelha {
 				{"-", "1", "-", "2", "-", "3", "-"},
 				{"1", " ", "|", " ", "|", " ", "|"},
 
-				//campos jogáveis [1][1], [1][3], [1][5]
+				//campos jogÃ¡veis [1][1], [1][3], [1][5]
 
 				{"-", "-", "-", "-", "-", "-", "-"},
 				{"2", " ", "|", " ", "|", " ", "|"},
 
-				//campos jogáveis [3][1], [3][3], [3][5]
+				//campos jogÃ¡veis [3][1], [3][3], [3][5]
 
 				{"-", "-", "-", "-", "-", "-", "-"},
 				{"3", " ", "|", " ", "|", " ", "|"},
 
-				//campos jogáveis [5][1], [5][3], [5][5]
+				//campos jogÃ¡veis [5][1], [5][3], [5][5]
 
 				{"-", "-", "-", "-", "-", "-", "-"},
 		};	
@@ -51,9 +49,10 @@ public class JogoDaVelha {
 
 		do {
 
-			Print.p("\n" + nomeJogador + ", quem começa, 'X' ou 'O'?");
+			Print.p("\n" + nomeJogador + ", quem comeÃ§a, 'X' ou 'O'?");
 			Scanner sc = new Scanner(System.in);
 			escolhaPeca = sc.next().charAt(0);
+
 
 		} while (escolhaPeca != 'x' && escolhaPeca	!= 'X' && escolhaPeca != 'o' && escolhaPeca	!= 	'O');
 
@@ -66,15 +65,17 @@ public class JogoDaVelha {
 		return escolhaPeca;
 	}
 
-	public static String [] [] jogoON(char escolhaPeca, String [] [] tabuleiro, String nomeJogador) {
+	public static String [] [] jogoON(char escolhaPeca, String [][] tabuleiro, String nomeJogador) {
 
-		int coluna, linha;
+		int coluna, linha, rodada = 1;
 		boolean vitoria = false;
 		boolean ninguemGanha = false;		
 
 		do {
 			if (escolhaPeca == 'X') {
-
+				
+				Print.p("RODADA " + rodada + ":");
+				
 				do {
 					linha = jogadaLinhaX(tabuleiro);
 					coluna = jogadaColunaX(tabuleiro);
@@ -88,7 +89,9 @@ public class JogoDaVelha {
 				ninguemGanha = ninguemGanha(tabuleiro, nomeJogador);
 
 				if(vitoria == false && ninguemGanha == false) {
-
+					
+					Print.p("RODADA " + rodada + ":");
+					
 					do {
 						linha = jogadaLinhaO(tabuleiro);
 						coluna = jogadaColunaO(tabuleiro);
@@ -100,10 +103,13 @@ public class JogoDaVelha {
 
 					vitoria = vitoria(tabuleiro, nomeJogador, linha, coluna);
 					ninguemGanha = ninguemGanha(tabuleiro, nomeJogador);
+					rodada++;
 				}
 
 			} else if (escolhaPeca == 'O') {
 
+				Print.p("RODADA " + rodada + ":");
+				
 				do {
 					linha = jogadaLinhaO(tabuleiro);
 					coluna = jogadaColunaO(tabuleiro);
@@ -118,6 +124,8 @@ public class JogoDaVelha {
 
 				if(vitoria == false && ninguemGanha == false) {
 
+					Print.p("RODADA " + rodada + ":");
+					
 					do {
 						linha = jogadaLinhaX(tabuleiro);
 						coluna = jogadaColunaX(tabuleiro);
@@ -126,9 +134,11 @@ public class JogoDaVelha {
 
 					tabuleiro[linha][coluna] = "X";
 					Print.tab(tabuleiro);
-
+		
+					
 					vitoria = vitoria(tabuleiro, nomeJogador, linha, coluna);
 					ninguemGanha = ninguemGanha (tabuleiro, nomeJogador);
+					rodada++;
 
 				}
 			}  	
@@ -144,12 +154,6 @@ public class JogoDaVelha {
 		boolean validarJogada = false;
 
 		if(tabuleiro[linha][coluna] == " ") {
-			
-			//tabuleiro[linha][coluna] = "X";
-			//validarJogada = true;
-			/*} else if (tabuleiro[linha][coluna] == " ") {
-			tabuleiro[linha][coluna] = "X";*/
-			
 			validarJogada = true;
 		}
 
@@ -173,8 +177,8 @@ public class JogoDaVelha {
 
 		{	
 			vitoria = true;
-			Print.p("Parabéns! Vitória de 'X'!");
-			aindaQuerJogar(nomeJogador);
+			Print.p("ParabÃ©ns! VitÃ³ria de 'X'!");
+			Play.aindaQuerJogar(nomeJogador);
 
 		} else if 	(tabuleiro[1][1] == tabuleiro[1][3] && tabuleiro[1][1] == tabuleiro[1][5] && tabuleiro[1][1] == "O"  || 
 				tabuleiro[3][1] == tabuleiro[3][3] && tabuleiro[3][1] == tabuleiro[3][5] && tabuleiro[3][1] == "O" ||
@@ -189,8 +193,8 @@ public class JogoDaVelha {
 		{
 
 			vitoria = true;
-			Print.p("Parabéns! Vitória de 'O'!");
-			aindaQuerJogar(nomeJogador);
+			Print.p("ParabÃ©ns! VitÃ³ria de 'O'!");
+			Play.aindaQuerJogar(nomeJogador);
 
 		}
 
@@ -204,8 +208,8 @@ public class JogoDaVelha {
 
 		do {
 
-			Print.p("Jogada de 'X':"
-					+ "\nEm qual linha você deseja inserir 'X'?");
+			Print.p("Jogada de 'X'"
+					+ "\nEm qual linha vocÃª deseja inserir 'X'?");
 			linha = sc.nextInt();
 
 			switch (linha) {
@@ -225,9 +229,7 @@ public class JogoDaVelha {
 			default:
 				Print.p("Erro inesperado");
 			}
-		}
-
-		while (linha != 1 && linha != 3 && linha != 5);
+		} while (linha != 1 && linha != 3 && linha != 5);
 
 		return linha;
 
@@ -240,7 +242,7 @@ public class JogoDaVelha {
 
 		do {
 
-			Print.p("\nEm qual coluna você deseja inserir 'X'?");
+			Print.p("\nEm qual coluna vocÃª deseja inserir 'X'?");
 
 			coluna = sc.nextInt();
 
@@ -277,8 +279,8 @@ public class JogoDaVelha {
 
 		do {
 
-			Print.p("Jogada de 'O':"
-					+ "\nEm qual linha você deseja inserir 'O'?");
+			Print.p("Jogada de 'O'"
+					+ "\nEm qual linha vocÃª deseja inserir 'O'?");
 			linha = sc.nextInt();
 
 			switch (linha) {
@@ -314,7 +316,7 @@ public class JogoDaVelha {
 
 		do {
 
-			Print.p("\nEm qual coluna você deseja inserir 'O'?");
+			Print.p("\nEm qual coluna vocÃª deseja inserir 'O'?");
 
 			coluna = sc.nextInt();
 
@@ -352,34 +354,12 @@ public class JogoDaVelha {
 				tabuleiro[3][1] != " " && tabuleiro[3][3] != " " && tabuleiro[3][5] != " " &&
 				tabuleiro[5][1] != " " && tabuleiro[5][3] != " " && tabuleiro[5][5] != " ") {
 			ninguemGanha = true;
-			
+
 			Print.p("Empate!");
-			aindaQuerJogar(nomeJogador);
+			Play.aindaQuerJogar(nomeJogador);
 		}
 
 		return ninguemGanha;
-	}
-	
-	public static void aindaQuerJogar(String nomeJogador) {
-
-		int aindaQuerJogar;
-
-		do {
-
-			Print.p("Você ainda quer jogar, " + nomeJogador + "?"
-					+ "\n(1) Sim;"
-					+ "\n(2) Não;");
-
-			Scanner sc = new Scanner (System.in);
-			aindaQuerJogar = sc.nextInt();
-
-		} while (aindaQuerJogar != 1 && aindaQuerJogar != 2);
-
-		if (aindaQuerJogar == 1) {
-			Play.obterEscolhaJogo(nomeJogador);
-		} else {
-			Print.p("Certo! Nos vemos de outra vez.");
-		}
 
 	}
 }
