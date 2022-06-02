@@ -20,11 +20,81 @@ public class Print {
 
 	public static void tab(String[][] tabuleiro) {
 		for (int i = 0; i < tabuleiro.length; i++) {
-			for (int j = 0; j < tabuleiro.length; j++) {
+			for (int j = 0; j < tabuleiro[i].length; j++) {
 				System.out.print(tabuleiro[i][j] +	" ");}
 			System.out.println(" ");
 		}
 		
 	}
+	
+	public static void tabDamas(String[][] tabuleiro) {
+		for (int i = 0; i < tabuleiro.length; i++) {
+			for (int j = 0; j < tabuleiro[i].length; j++) {
+				System.out.print(tabuleiro[i][j] + "");}
+			System.out.println(" ");
+		}
+
+	}
+	
+	public static void charada(String[][] array, int numAleatorio) {
+
+		for (int i = 0; i < 1; i++) {
+			for (int j = 0; j < array[1].length; j++) {
+
+				System.out.print((array[numAleatorio][j]) + " ");
+
+			}
+		}
+		
+		System.out.println();
+
+		for (int i = 0; i < array.length; i++) {
+			for (int j = 0; j < array[i].length; j++) {
+
+				if (i == numAleatorio) {
+					System.out.print(array[i][j] + " ");
+				}
+			}
+		}
+
+	}
+
+
+	public static String preencherEspacoStr(String str, int qtd){
+
+		String res = "";
+		int tam = qtd - (str + "").length();
+
+		for (int i = 0; i < tam; i++) {
+			res+=" ";
+		}
+
+		return res+str;
+
+	}
+	
+	/*public static void arrayInt (int[] ordemColuna) {
+		for (int i = 0; i < ordemColuna.length; i++) {
+			System.out.print(ordemColuna[i] + " | ");
+		}
+		
+		System.out.println();
+	}*/
+
+	//usar %5d para jogo da velha e damas
+
+	public static String preencherZero (int valor, int qtd){
+
+		String res = "";
+		int tam = qtd - (valor + "").length();
+
+		for (int i = 0; i < tam; i++) {
+			res+="0";
+		}
+
+		return res+valor;
+
+	}
+
 
 }
