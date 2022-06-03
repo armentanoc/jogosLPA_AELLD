@@ -199,7 +199,7 @@ public class JogoDeDamas {
 
 			} else {	
 					
-					if ((tabuleiro[linhaOrigem+linhaSegComeu][colunaOrigem+linhaSegComeu] == pecaOposta) && (linhaSeguinte == linhaOrigem+subLinha) && (colunaSeguinte == colunaOrigem+subCol)) {
+					if ((tabuleiro[linhaOrigem+linhaSegComeu][colunaOrigem+colSegComeu] == pecaOposta) && (linhaSeguinte == linhaOrigem+subLinha) && (colunaSeguinte == colunaOrigem+subCol)) {
 					
 					validar = true;
 					tabuleiro[linhaSeguinte][colunaSeguinte] = tipoPeca;
@@ -267,7 +267,8 @@ public static int pontosPreto (String pecaBranco, String [][] tabuleiro, int pts
 	 * 1. Repetir método jogadaPreto para jogadaBranco - DONE;
 	 * 2. Criar lógica de validação de jogada: só é válida se for na diagonal (linha +1 ou -1 && coluna +1 ou -1) - DONE;
 	 * 2.a. Escanear se existe pedra na jogada validada e não existe na jogada validada +1 ou -1) - DONE;
-	 * 3. Criar lógica para "comer pedra" (a pedra contrária +1 ou -1) e acumular pontos (Branco++, Preto++) - DONE;
+	 * 3. Criar lógica para "comer pedra" (a pedra contrária +1 ou -1)
+	 *3.1. Criar logica para acumular pontos (Branco++, Preto++) - DONE;
 	 * 3. Criar lógica de promoção à dama (se for preta e chegar a ultima linha ou se for branca e chegar a primeira linha)
 	 * 4. Criar lógica de vitória: escanear o tabuleiro para verificar se ainda existe |○| ou |●| - IN PROGRESS;
 	 * 4.1. Regras de empate (docs)
