@@ -30,32 +30,31 @@ public class Charada {
 		boolean acertou = false;
 
 		while(acertou == false) {
-			
-				Print.p("O que é o que é?");
-				Print.p(tempPainelCharada[numAleatorio][0]);
-				resposta = sc.next();
+
+			Print.p("O que é o que é?");
+			Print.p(tempPainelCharada[numAleatorio][0]);
+			resposta = sc.next();
+
+			if (resposta.equals(tempPainelCharada[numAleatorio][1]) || resposta.equals(tempPainelCharada[numAleatorio][2]) || resposta.equals(tempPainelCharada[numAleatorio][3])) {
+
+				acertou = true;
+				Print.p("Acertou! A resposta correta é: " + tempPainelCharada[numAleatorio][1] + ".");
+
+
+			} else {
+
+				qtdChances--;
 				
-				if (resposta.equals(tempPainelCharada[numAleatorio][1]) || resposta.equals(tempPainelCharada[numAleatorio][2]) || resposta.equals(tempPainelCharada[numAleatorio][3])) {
-
-					acertou = true;
-					Print.p("Acertou! A resposta correta é: " + tempPainelCharada[numAleatorio][1] + ".");
-
-
-				} else {
-					
-					qtdChances--;
-					if (qtdChances > 0) {
+				if (qtdChances > 0) {
 					Print.p("Tente novamente. Você ainda tem " + qtdChances + " chance(s).");
-					
-					}
 				}
+				
+				else if(qtdChances == 0) { 
+					Print.p("As chances acabaram! A resposta correta é: " + tempPainelCharada[numAleatorio][1] + ".");
+					acertou = true;
+				}
+
 			}
-		
-			
-		if(qtdChances == 0) { 
-			
-			Print.p("As chances acabaram! A resposta correta é: " + tempPainelCharada[numAleatorio][1] + ".");
-			
 		}
 	}
 
