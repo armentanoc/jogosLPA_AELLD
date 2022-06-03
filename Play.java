@@ -7,7 +7,7 @@ public class Play {
 	public static void main(String[] args) {
 
 		Print.p("\n"
-				+ "JOGO DA VELHA & DAMAS"
+				+ "JOGO DA VELHA, DAMAS & CHARADA"
 				+ "\n"	
 				+ "\nOlá! Informe seu nome:");
 
@@ -43,8 +43,6 @@ public class Play {
 			}
 			
 		} while (escolha != 1 && escolha != 2 && escolha != 3 && escolha != 4);
-		
-		//não estamos tratado caso a pessoa insira uma letra ao invés de um número
 		
 		switch (escolha) {
 
