@@ -28,6 +28,9 @@ public class Print {
 	}
 	
 	public static void tabDamas(String[][] tabuleiro) {
+		
+		System.out.println("");
+		
 		for (int i = 0; i < tabuleiro.length; i++) {
 			for (int j = 0; j < tabuleiro[i].length; j++) {
 				System.out.print(tabuleiro[i][j] + "");}
