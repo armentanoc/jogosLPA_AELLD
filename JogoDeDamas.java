@@ -85,23 +85,28 @@ public class JogoDeDamas {
 
 		String corPreto = "○", corBranco = "●";
 		String pecaPreto = "|○|", pecaBranco = "|●|";
-		int rodada = 1;
+		int rodada = 1, ptsBranco = 0, ptsPreto = 0;
 
 		do { 
 
-			tabuleiro = jogada(tabuleiro, corBranco, pecaBranco, rodada);
+			tabuleiro = jogada(tabuleiro, corBranco, pecaBranco, rodada, ptsBranco, ptsPreto);
 
 			Print.tabDamas(tabuleiro);
+			
+			ptsBranco = pontosBranco(pecaPreto, tabuleiro, ptsBranco);
 
 
 			Print.p("\n");
 
-			tabuleiro = jogada(tabuleiro, corPreto, pecaPreto, rodada);
+			tabuleiro = jogada(tabuleiro, corPreto, pecaPreto, rodada, ptsBranco, ptsPreto);
 
 			Print.tabDamas(tabuleiro);
+			
+			ptsPreto = pontosPreto(pecaBranco, tabuleiro, ptsPreto);
+			
 			rodada++;
 
-		} while (rodada < 5);
+		} while (rodada < 50);
 
 		//(vitoria == false && empate == false);
 		//criar metodo para testar vitoria e metodo para testar empate
@@ -110,9 +115,9 @@ public class JogoDeDamas {
 
 	}
 
-	public static String [][] jogada (String [][] tabuleiro, String corPeca, String tipoPeca, int rodada) {
+	public static String [][] jogada (String [][] tabuleiro, String corPeca, String tipoPeca, int rodada, int ptsBranco, int ptsPreto) {
 
-		int colunaSeguinte, linhaSeguinte, colunaOrigem, linhaOrigem, ptsPreto = 0, ptsBranco = 0;
+		int colunaSeguinte, linhaSeguinte, colunaOrigem, linhaOrigem;
 		boolean validar = false;
 		String pecaPreta = "○", pecaBranca = "●";
 
@@ -218,6 +223,42 @@ public class JogoDeDamas {
 
 		return validar;
 
+	}
+	
+	public static int pontosBranco (String pecaPreto, String [][] tabuleiro, int ptsBranco) {
+		
+		ptsBranco = 12;
+		
+		for (int i = 0; i < tabuleiro.length; i++) {
+			for (int j = 0; j < tabuleiro[i].length; j++) {
+				
+				if(tabuleiro[i][j] == pecaPreto) {
+					ptsBranco--;
+				}
+				
+			}
+		}
+		
+		return ptsBranco;
+		
+	}
+	
+public static int pontosPreto (String pecaBranco, String [][] tabuleiro, int ptsPreto) {
+		
+		ptsPreto = 12;
+		
+		for (int i = 0; i < tabuleiro.length; i++) {
+			for (int j = 0; j < tabuleiro[i].length; j++) {
+				
+				if(tabuleiro[i][j] == pecaBranco) {
+					ptsPreto--;
+				}
+				
+			}
+		}
+		
+		return ptsPreto;
+		
 	}
 
 	/*
