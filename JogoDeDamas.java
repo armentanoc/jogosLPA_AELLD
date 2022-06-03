@@ -8,15 +8,11 @@ public class JogoDeDamas {
 
 		Print.p("\nJOGO DE DAMAS");
 
-		Print.p("\n");
-
 		String [][] tabuleiroInicial = tabuleiro();
 
 		Print.tabDamas(tabuleiroInicial);
 
 		jogoON(tabuleiroInicial);
-
-		Print.p("\n");
 
 		Play.obterEscolhaJogo(nomeJogador);
 
@@ -70,9 +66,7 @@ public class JogoDeDamas {
 				tabuleiro[8][numeroCasa] = "|"+ numeroCasa + "|";
 				tabuleiro[numeroCasa][8] = "|"+ numeroCasa + "|";
 				numeroCasa++;
-
 			}
-
 		}
 
 		tabuleiro[8][8] = "|#|";
@@ -84,26 +78,18 @@ public class JogoDeDamas {
 	public static String [][] jogoON(String [][] tabuleiro) {
 
 		String corPreto = "○", corBranco = "●";
-		String pecaPreto = "|○|", pecaBranco = "|●|";
+		String pecaPreto = "|○|", pecaBranco = "|●|", damaPreto = "|◎|", damaBranco = "|◉|";
 		int rodada = 1, ptsBranco = 0, ptsPreto = 0;
 
 		do { 
 
-			tabuleiro = jogada(tabuleiro, corBranco, pecaBranco, rodada, ptsBranco, ptsPreto);
-
+			tabuleiro = jogada(tabuleiro, corBranco, pecaBranco, damaBranco, rodada, ptsBranco, ptsPreto);
 			Print.tabDamas(tabuleiro);
-			
 			ptsBranco = pontosBranco(pecaPreto, tabuleiro, ptsBranco);
 
-
-			Print.p("\n");
-
-			tabuleiro = jogada(tabuleiro, corPreto, pecaPreto, rodada, ptsBranco, ptsPreto);
-
+			tabuleiro = jogada(tabuleiro, corPreto, pecaPreto, damaPreto, rodada, ptsBranco, ptsPreto);
 			Print.tabDamas(tabuleiro);
-			
-			ptsPreto = pontosPreto(pecaBranco, tabuleiro, ptsPreto);
-			
+			ptsPreto = pontosPreto(pecaBranco, tabuleiro, ptsPreto);	
 			rodada++;
 
 		} while (rodada < 50);
@@ -115,7 +101,7 @@ public class JogoDeDamas {
 
 	}
 
-	public static String [][] jogada (String [][] tabuleiro, String corPeca, String tipoPeca, int rodada, int ptsBranco, int ptsPreto) {
+	public static String [][] jogada (String [][] tabuleiro, String corPeca, String tipoPeca, String tipoDama, int rodada, int ptsBranco, int ptsPreto) {
 
 		int colunaSeguinte, linhaSeguinte, colunaOrigem, linhaOrigem;
 		boolean validar = false;
@@ -141,8 +127,7 @@ public class JogoDeDamas {
 
 		do {
 
-			Print.p("\n"
-					+ "Para qual linha deseja mover essa peça? (0 a 7)");
+			Print.p("\nPara qual linha deseja mover essa peça? (0 a 7)");
 
 			linhaSeguinte = sc.nextInt();
 
@@ -150,7 +135,7 @@ public class JogoDeDamas {
 
 			colunaSeguinte = sc.nextInt();
 
-			validar = validarJogada(linhaOrigem, linhaSeguinte, colunaOrigem, colunaSeguinte, tabuleiro, tipoPeca, ptsBranco, ptsPreto);
+			validar = validarJogada(linhaOrigem, linhaSeguinte, colunaOrigem, colunaSeguinte, tabuleiro, tipoPeca, tipoDama, ptsBranco, ptsPreto);
 
 			//verificando se é possível mover a peça pra o local desejado
 
@@ -160,17 +145,20 @@ public class JogoDeDamas {
 
 	}
 
-	public static boolean validarJogada(int linhaOrigem, int linhaSeguinte, int colunaOrigem, int colunaSeguinte, String[][] tabuleiro, String tipoPeca, int ptsBranco, int ptsPreto) {
+	public static boolean validarJogada(int linhaOrigem, int linhaSeguinte, int colunaOrigem, int colunaSeguinte, String[][] tabuleiro, String tipoPeca, String tipoDama, int ptsBranco, int ptsPreto) {
 
 		boolean validar = false;
 		int subLinha = linhaSeguinte - linhaOrigem, subCol = colunaSeguinte - colunaOrigem, linhaSegComeu = 0, colSegComeu = 0;
 
-		String pecaPreta = "|○|", pecaBranca = "|●|", vazio = "|_|", pecaOposta = "|_|", linhaIntermed, colunaIntermed;
+		String pecaPreta = "|○|", pecaBranca = "|●|", damaPreto = "|◎|", damaBranco = "|◉|", vazio = "|_|", pecaOposta = "|_|", linhaIntermed, colunaIntermed;
 
 		if (tipoPeca == pecaPreta) {
 			pecaOposta = pecaBranca;
+			tipoDama = damaPreto;
 		} else if (tipoPeca == pecaBranca) {
 			pecaOposta = pecaPreta;
+			tipoDama = damaBranco;
+			
 
 		}
 
@@ -191,24 +179,41 @@ public class JogoDeDamas {
 
 			if ((linhaSeguinte == linhaOrigem + 1 || linhaSeguinte == linhaOrigem - 1) && colunaSeguinte == colunaOrigem + 1 || colunaSeguinte == colunaOrigem - 1) {
 				
-				validar = true;
 				tabuleiro[linhaSeguinte][colunaSeguinte] = tipoPeca;
+				
+				if(linhaSeguinte == 0 && tipoPeca == pecaBranca) {
+					tabuleiro[linhaSeguinte][colunaSeguinte] = damaBranco;
+				} 
+				
+				if (linhaSeguinte == 7 && tipoPeca == pecaPreta) {
+					tabuleiro[linhaSeguinte][colunaSeguinte] = damaPreto;
+				}
+				
 				//preenchendo com a peça a linha e coluna seguinte
 				tabuleiro[linhaOrigem][colunaOrigem] = vazio;
 				//apagando onde a peça estava anteriormente
 
+				validar = true;
+				
 			} else {	
 					
 					if ((tabuleiro[linhaOrigem+linhaSegComeu][colunaOrigem+colSegComeu] == pecaOposta) && (linhaSeguinte == linhaOrigem+subLinha) && (colunaSeguinte == colunaOrigem+subCol)) {
 					
 					validar = true;
-					tabuleiro[linhaSeguinte][colunaSeguinte] = tipoPeca;
+					
 					tabuleiro[linhaOrigem+linhaSegComeu][colunaOrigem+colSegComeu] = vazio;
 					//apagando a peça comida
 					tabuleiro[linhaOrigem][colunaOrigem] = vazio;
 					//apagando onde a peça estava anteriormente
 					tabuleiro[linhaSeguinte][colunaSeguinte] = tipoPeca;
 					//preenchendo com a peça a linha e coluna seguintes
+					if(linhaSeguinte == 0 && tipoPeca == pecaBranca) {
+						tabuleiro[linhaSeguinte][colunaSeguinte] = damaBranco;
+					} 
+					
+					if (linhaSeguinte == 7 && tipoPeca == pecaPreta) {
+						tabuleiro[linhaSeguinte][colunaSeguinte] = damaPreto;
+					}
 					
 					if(tipoPeca == pecaPreta) {
 						ptsPreto++;
@@ -267,9 +272,8 @@ public static int pontosPreto (String pecaBranco, String [][] tabuleiro, int pts
 	 * 1. Repetir método jogadaPreto para jogadaBranco - DONE;
 	 * 2. Criar lógica de validação de jogada: só é válida se for na diagonal (linha +1 ou -1 && coluna +1 ou -1) - DONE;
 	 * 2.a. Escanear se existe pedra na jogada validada e não existe na jogada validada +1 ou -1) - DONE;
-	 * 3. Criar lógica para "comer pedra" (a pedra contrária +1 ou -1)
-	 *3.1. Criar logica para acumular pontos (Branco++, Preto++) - DONE;
-	 * 3. Criar lógica de promoção à dama (se for preta e chegar a ultima linha ou se for branca e chegar a primeira linha)
+	 * 3. Criar lógica para "comer pedra" (a pedra contrária +1 ou -1) e acumular pontos (Branco++, Preto++) - DONE;
+	 * 3. Criar lógica de promoção à dama (se for preta e chegar a ultima linha ou se for branca e chegar a primeira linha) - DONE;
 	 * 4. Criar lógica de vitória: escanear o tabuleiro para verificar se ainda existe |○| ou |●| - IN PROGRESS;
 	 * 4.1. Regras de empate (docs)
 	 * 5. Criar movimento especial da dama (várias pedras)
